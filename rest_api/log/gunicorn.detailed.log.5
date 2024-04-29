@@ -1,0 +1,83 @@
+[2024-04-28 22:44:50,159] ERROR Exception on /produtos [GET] - call_trace=/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask/app.py L1449
+Traceback (most recent call last):
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask/app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask/app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask/app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask_openapi3/scaffold.py", line 109, in wrapper
+    resp = _do_wrapper(
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask_openapi3/do_wrapper.py", line 135, in _do_wrapper
+    response = func(**request_kwargs)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/app.py", line 79, in get_produtos
+    produtos = session.query(Produto).all()
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2159, in query
+    return self._query_cls(entities, self, **kwargs)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 180, in __init__
+    self._set_entities(entities)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 187, in _set_entities
+    self._raw_columns = [
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 188, in <listcomp>
+    coercions.expect(
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/sql/coercions.py", line 181, in expect
+    insp._post_inspect
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 1184, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/mapper.py", line 2182, in _post_inspect
+    self._check_configure()
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/mapper.py", line 1924, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/mapper.py", line 3483, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/mapper.py", line 3518, in _do_configure_registries
+    raise e
+sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'mapped class Produto->produto'. Original exception was: Could not determine join condition between parent/child tables on relationship Produto.comentarios - there are no foreign keys linking these tables.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or specify a 'primaryjoin' expression.
+[2024-04-28 22:44:50,289] INFO 127.0.0.1 - - [28/Apr/2024 22:44:50] "[35m[1mGET /produtos HTTP/1.1[0m" 500 - - call_trace=/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/werkzeug/_internal.py L224 
+[2024-04-28 22:44:59,221] INFO 127.0.0.1 - - [28/Apr/2024 22:44:59] "[33mGET /home HTTP/1.1[0m" 404 - - call_trace=/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/werkzeug/_internal.py L224 
+[2024-04-28 22:45:14,151] INFO Coletando produtos  - call_trace=/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/app.py L75  
+[2024-04-28 22:45:14,152] ERROR Exception on /produtos [GET] - call_trace=/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask/app.py L1449
+Traceback (most recent call last):
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask/app.py", line 1519, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask/app.py", line 1517, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask/app.py", line 1503, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask_openapi3/scaffold.py", line 109, in wrapper
+    resp = _do_wrapper(
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/flask_openapi3/do_wrapper.py", line 135, in _do_wrapper
+    response = func(**request_kwargs)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/app.py", line 79, in get_produtos
+    produtos = session.query(Produto).all()
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2159, in query
+    return self._query_cls(entities, self, **kwargs)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 180, in __init__
+    self._set_entities(entities)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 187, in _set_entities
+    self._raw_columns = [
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/query.py", line 188, in <listcomp>
+    coercions.expect(
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/sql/coercions.py", line 181, in expect
+    insp._post_inspect
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 1184, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/mapper.py", line 2182, in _post_inspect
+    self._check_configure()
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/mapper.py", line 1924, in _check_configure
+    _configure_registries({self.registry}, cascade=True)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/mapper.py", line 3483, in _configure_registries
+    _do_configure_registries(registries, cascade)
+  File "/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/sqlalchemy/orm/mapper.py", line 3518, in _do_configure_registries
+    raise e
+sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'mapped class Produto->produto'. Original exception was: Could not determine join condition between parent/child tables on relationship Produto.comentarios - there are no foreign keys linking these tables.  Ensure that referencing columns are associated with a ForeignKey or ForeignKeyConstraint, or specify a 'primaryjoin' expression.
+[2024-04-28 22:45:14,165] INFO 127.0.0.1 - - [28/Apr/2024 22:45:14] "[35m[1mGET /produtos HTTP/1.1[0m" 500 - - call_trace=/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/env/lib/python3.10/site-packages/werkzeug/_internal.py L224 
+[2024-04-28 22:46:40,061] INFO Coletando produtos  - call_trace=/mnt/d/OneDrive/Documentos/GitHub/mvp_puc_2024/rest_api/app.py L75  

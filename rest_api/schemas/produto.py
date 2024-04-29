@@ -2,34 +2,13 @@ from pydantic import BaseModel
 from typing import Optional, List
 from models.produto import Produto
 
-
 class ProdutoSchema(BaseModel):
-    """ Define como um novo produto a ser inserido deve ser representado
-    """
-    nome: str = "Camiseta"
-    preco: float = 29.99
-    descricao: str = "Uma camiseta confortável e estilosa"
-    marca: str = "MarcaX"
-    categoria: str = "Roupas"
-
-
-class ProdutoViewSchema(BaseModel):
-    """ Define como um novo produto a ser inserido deve ser representado
-    """
-    nome: str = "Camiseta"
-    preco: float = 29.99
-    descricao: str = "Uma camiseta confortável e estilosa"
-    marca: str = "MarcaX"
-    categoria: str = "Roupas"
-    comentarios: List[str] = ["Só comprar se o preço realmente estiver bom!"]
-
-
-class ProdutoBuscaPorNomeSchema(BaseModel):
-    """ Define como deve ser a estrutura que representa a busca. Que será
-        feita apenas com base no nome do produto.
-    """
-    termo: str = "Camiseta"
-
+    nome: str = "IPhone 11"
+    descricao: Optional[str] = "Na medida certa. Amplie seus horizontes com a câmera ulta-angular. "
+    marca: str = "Apple"
+    categoria: str = "Telefonia"
+    imagem: str = "https://images-americanas.b2w.io/produtos/01/00/img/338827/0/338827081_2SZ.jpg"
+    valor: float = 3599.10
 
 class ProdutoBuscaPorIDSchema(BaseModel):
     """ Define como deve ser a estrutura que representa a busca. Que será
@@ -37,44 +16,71 @@ class ProdutoBuscaPorIDSchema(BaseModel):
     """
     id: int = "1"
 
+class ProdutoBuscaPorNomeSchema(BaseModel):
+    """ Define como deve ser a estrutura que representa a busca. Que será
+        feita apenas com base no nome do produto.
+    """
+    termo: str = "IPhone 11"
+
+class ProdutoBuscaSchema(BaseModel):
+    id: Optional[int] = 1
+    nome: Optional[str] = "IPhone 11"
+
+
+class ProdutoViewSchema(BaseModel):
+    id: int = 1
+    nome: str = "IPhone 11"
+    descricao: Optional[str] = "Na medida certa. Amplie seus horizontes com a câmera ulta-angular. "
+    marca: str = "Apple"
+    categoria: str = "Telefonia"
+    imagem: str = "https://images-americanas.b2w.io/produtos/01/00/img/338827/0/338827081_2SZ.jpg"
+    valor: float = 3599.10
+    total_cometarios: int = 1
+    nota_media: int = 0
+
+
+class ProdutoDelSchema(BaseModel):
+    mesage: str
+    id: int
+
+def apresenta_produto(produto: List[Produto]):
+    """ Retorna uma representação do produto seguindo o schema definido em
+        ListagemProdutosSchema.
+    """
+    result = []
+    for produto in produto:
+        result.append({
+        "id": produto.id,
+        "nome": produto.nome,
+        "marca": produto.marca,
+        "categoria": produto.categoria,
+        "descricao": produto.descricao,
+        "imagem": produto.imagem_path,
+        "valor": float(produto.valor),
+        "price": float(produto.valor),
+          })
+
+    return {"produto": result}
+
+class ProdutoListaViewSchema(BaseModel):
+    produtos: List[ProdutoViewSchema]
+
+def apresenta_lista_produto(produtos):
+    result = []
+    for produto in produtos:
+        result.append(apresenta_produto(produto))
+    return {"produtos": result}
+
+class ProdutoBuscaPorIDSchema(BaseModel):
+    """ Define como deve ser a estrutura que representa a busca. Que será
+        feita apenas com base no ID do produto.
+    """
+    id: int = "1"
 
 class ListagemProdutosSchema(BaseModel):
     """ Define como uma listagem de produtos será retornada.
     """
     produtos:List[ProdutoViewSchema]
-
-
-def apresenta_produtos(produtos: List[Produto]):
-    """ Retorna uma representação do produto seguindo o schema definido em
-        ListagemProdutosSchema.
-    """
-    result = []
-    for produto in produtos:
-        result.append({
-            "id": produto.id,
-            "nome": produto.nome,
-            "preco": produto.preco,
-            "descricao": produto.descricao,
-            "marca": produto.marca,
-            "categoria": produto.categoria,
-            "comentarios": [c.texto for c in produto.comentarios]
-        })
-
-    return {"produtos": result}
-
-
-class ProdutoViewSchema(BaseModel):
-    """ Define como um produto será retornado: produto + comentários.
-    """
-    id: int = 1
-    nome: str = "Camiseta"
-    preco: float = 29.99
-    descricao: str = "Uma camiseta confortável e estilosa"
-    marca: str = "MarcaX"
-    categoria: str = "Roupas"
-    total_cometarios: int = 1
-    comentarios:List[str] = ["Só comprar se o preço realmente estiver bom!"]
-
 
 class ProdutoDelSchema(BaseModel):
     """ Define como deve ser a estrutura do dado retornado após uma requisição
@@ -83,7 +89,6 @@ class ProdutoDelSchema(BaseModel):
     mesage: str
     id: int
 
-
 def apresenta_produto(produto: Produto):
     """ Retorna uma representação do produto seguindo o schema definido em
         ProdutoViewSchema.
@@ -91,10 +96,8 @@ def apresenta_produto(produto: Produto):
     return {
         "id": produto.id,
         "nome": produto.nome,
-        "preco": produto.preco,
+        "valor": produto.valor,
         "descricao": produto.descricao,
         "marca": produto.marca,
         "categoria": produto.categoria,
-        "total_cometarios": len(produto.comentarios),
-        "comentarios": [c.texto for c in produto.comentarios]
     }

@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 from typing import Union
 
-from  models import Base, Comentario
+from  models import Base
 
 
 class Produto(Base):
@@ -13,7 +13,7 @@ class Produto(Base):
     # a tabela que vai representar o produto, se chama 'prod_catalog',
     # supondo o cenário em que o sufixo "catalog" é utilizado para 
     # indicar que é uma tabela de catálogo de produtos.
-    __tablename__ = 'prod_catalog'
+    __tablename__ = 'produto'
 
     # O nome de uma coluna também pode ter no banco um nome diferente
     # como é apresentado aqui no caso do Produto.id que no banco será 
@@ -24,8 +24,9 @@ class Produto(Base):
     # Supondo que os atributos seguintes já estejam em conformidade
     # com o menemônico adotado pela empresa, então não há necessidade
     # de fazer a definição de um "nome" de coluna diferente.
-    nome = Column(String(140))  # 140 é o número máximo de caracteres
-    preco = Column(Float)
+    nome = Column(String(140), unique=True)  # 140 é o número máximo de caracteres
+    valor = Column(Float)
+    valor = Column(Float)
     descricao = Column(String(2000))
     marca = Column(String(140))
     categoria = Column(String(140))
@@ -37,24 +38,23 @@ class Produto(Base):
     # Criando um requisito de unicidade envolvendo uma par de informações
     __table_args__ = (UniqueConstraint("nome", "categoria", name="prod_unique_id"),)
 
-    # Estabelecendo o relacionamento entre produto e comentários
-    comentarios = relationship('Comentario')
-
-    def __init__(self, nome, preco, descricao, marca, categoria,
+    
+    def __init__(self, nome, valor, descricao, marca, categoria,
                  data_insercao:Union[DateTime, None] = None):
         """
         Cria um Produto
 
         Arguments:
             nome: nome do produto.
-            preco: preço atual do produto
+            valor: preço atual do produto
             descricao: descrição do produto fornecida pelo fabricante
             marca: identiicação da fabricante
             categoria: categoria atribuída ao produto pela loja
             data_insercao: data de quando o produto foi inserido à base
         """
         self.nome = nome
-        self.preco = preco
+        self.valor = valor
+        self.valor = valor
         self.descricao = descricao
         self.marca = marca
         self.categoria = categoria
@@ -73,18 +73,14 @@ class Produto(Base):
             "marca": self.marca,
             "categoria": self.categoria,
             "descricao": self.descricao,
-            "preco": self.preco,
+            "valor": self.valor,
             "data_insercao": self.data_insercao,
-            "comentarios": [c.to_dict() for c in self.comentarios]
-        }
+            }
 
     def __repr__(self):
         """
         Retorna uma representação do Produto em forma de texto.
         """
-        return f"Product(id={self.id}, nome='{self.nome}', preco={self.preco}, marca='{self.marca}', categoria='{self.categoria}')"
+        return f"Product(id={self.id}, nome='{self.nome}', valor={self.valor}, marca='{self.marca}', categoria='{self.categoria}')"
 
-    def adiciona_comentario(self, comentario:Comentario):
-        """ Adiciona um novo comentário ao Produto
-        """
-        self.comentarios.append(comentario)
+    
